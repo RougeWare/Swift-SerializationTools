@@ -78,7 +78,7 @@ class JsonConveniencesTests: XCTestCase {
 
 
 
-private extension Date {
+internal extension Date {
     var roundedToNearestSecond: Date {
         Date(timeIntervalSinceReferenceDate: self.timeIntervalSinceReferenceDate.rounded())
     }
@@ -86,7 +86,7 @@ private extension Date {
 
 
 
-private struct Test: Codable, Equatable {
+internal struct Test: Codable, Equatable {
     let bool: Bool
     let string: String
     let nullableString: String?
