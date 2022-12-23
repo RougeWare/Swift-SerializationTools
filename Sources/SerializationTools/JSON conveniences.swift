@@ -1,8 +1,8 @@
 //
 //  JSON conveniences.swift
-//  
+//  SerializationTools
 //
-//  Created by Ben Leggiero on 2020-12-14.
+//  Created by Ky Leggiero on 2020-12-14.
 //
 
 import Foundation
@@ -38,7 +38,7 @@ public extension Encodable {
         encoder.dataEncodingStrategy = dataEncodingStrategy
         encoder.dateEncodingStrategy = dateEncodingStrategy
         encoder.keyEncodingStrategy = keyEncodingStrategy
-        encoder.nonConformingFloatEncodingStrategy = .convertToJavaScriptStyleStrings
+        encoder.nonConformingFloatEncodingStrategy = nonConformingFloatEncodingStrategy
         return try encoder.encode(self)
     }
     
