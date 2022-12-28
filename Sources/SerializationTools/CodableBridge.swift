@@ -40,6 +40,8 @@ public extension CodableBridge {
 
 // MARK: - Codable
 
+@available(macOS 10.13, *)
+@available(iOS 11, *)
 extension CodableBridge: Encodable {
     public func encode(to encoder: Encoder) throws {
         let nsCoder = NSKeyedArchiver(requiringSecureCoding: true)
@@ -51,6 +53,8 @@ extension CodableBridge: Encodable {
 
 
 
+@available(macOS 10.13, *)
+@available(iOS 11, *)
 extension CodableBridge: Decodable {
     public init(from decoder: Decoder) throws {
         self.init(value: try BaseType(coder: try Self.nsCoder(from: decoder)).unwrappedOrThrow())
@@ -82,6 +86,8 @@ public extension NSCoding {
 
 
 
+@available(macOS 10.13, *)
+@available(iOS 11, *)
 public extension NSCoding where Self: Encodable {
     func encode(to encoder: Encoder) throws {
         try self.codable.encode(to: encoder)
@@ -90,6 +96,8 @@ public extension NSCoding where Self: Encodable {
 
 
 
+@available(macOS 10.13, *)
+@available(iOS 11, *)
 public extension NSCoding where Self: Decodable {
     /// This function allows you to easily decode an `NSCoding` instance
     ///
