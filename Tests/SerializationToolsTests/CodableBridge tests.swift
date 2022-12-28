@@ -54,11 +54,11 @@ class CodableBridgeTests: XCTestCase {
         XCTAssertEqual(raw, decoded)
     }
     
-    @available(iOS 13.0, *)
+    @available(macOS 11, *)
     func testNsImage_accessingFields() throws {
-        let bridge = try XCTUnwrap(NSImage(systemSymbolName: "testtube.2", accessibilityDescription: "Example text")).codable
-        XCTAssertEqual(bridge.size.width, 16)
-        XCTAssertEqual(bridge.size.height, 16)
+        let bridge = try XCTUnwrap(NSImage(systemSymbolName: "square.and.arrow.up", accessibilityDescription: "Example text")).codable
+        XCTAssertTrue((15...16).contains(bridge.size.width)) // Old macOS has 16x16, new macOS has 15x17
+        XCTAssertTrue((16...17).contains(bridge.size.height)) // Old macOS has 16x16, new macOS has 15x17
         XCTAssertEqual(bridge.accessibilityDescription, "Example text")
     }
     #endif
