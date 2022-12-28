@@ -54,6 +54,21 @@ class CodableBridgeTests: XCTestCase {
         XCTAssertEqual(raw, decoded)
     }
     
+    func testNsColor_system_lightDark() throws {
+        let light = NSAppearance(named: .aqua)
+        let dark = NSAppearance(named: .darkAqua)
+        
+        NSAppearance.current = light
+        
+        let raw = NSColor.labelColor
+        let jsonString = try raw.codable.jsonString()
+        
+        NSAppearance.current = dark
+        
+        let decoded = try NSColor.CodableBridge(jsonString: jsonString).value
+        XCTAssertEqual(raw, decoded)
+    }
+    
     @available(macOS 11, *)
     func testNsImage_accessingFields() throws {
         let bridge = try XCTUnwrap(NSImage(systemSymbolName: "square.and.arrow.up", accessibilityDescription: "Example text")).codable
@@ -101,10 +116,23 @@ class CodableBridgeTests: XCTestCase {
     }
     
     @available(iOS 13.0, *)
+    func testNsColor_system_lightDark() throws {
+        UITraitCollection.current = .init(userInterfaceStyle: .light)
+        
+        let raw = UIColor.label
+        let jsonString = try raw.codable.jsonString()
+        
+        UITraitCollection.current = .init(userInterfaceStyle: .dark)
+        
+        let decoded = try UIColor.CodableBridge(jsonString: jsonString).value
+        XCTAssertEqual(raw, decoded)
+    }
+    
+    @available(iOS 13.0, *)
     func testUiImage_accessingFields() throws {
-        let bridge = try XCTUnwrap(UIImage(systemName: "testtube.2")).codable
-        XCTAssertEqual(bridge.size.width, 21)
-        XCTAssertEqual(bridge.size.height, 19.6666, accuracy: 0.0001)
+        let bridge = try XCTUnwrap(UIImage(systemName: "square.and.arrow.up")).codable
+        XCTAssertEqual(bridge.size.width, 19)
+        XCTAssertEqual(bridge.size.height, 21)
     }
     #endif
 }
