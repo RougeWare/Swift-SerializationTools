@@ -108,3 +108,23 @@ public extension NSCoding where Self: Decodable {
         try Self.init(coder: try CodableBridge.nsCoder(from: decoder)).unwrappedOrThrow()
     }
 }
+
+
+
+// MARK: - Passthrough conformance
+
+extension CodableBridge: Equatable where BaseType: Equatable {
+    
+    public static func == (lhs: Self, rhs: Self) -> Bool {
+        lhs.value == rhs.value
+    }
+}
+
+
+
+extension CodableBridge: Hashable where BaseType: Hashable {
+    
+    public func hash(into hasher: inout Hasher) {
+        value.hash(into: &hasher)
+    }
+}
